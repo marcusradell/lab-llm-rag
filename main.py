@@ -5,10 +5,11 @@ from qdrant_client.models import Distance, VectorParams
 
 client = QdrantClient(url="http://localhost:6333")
 
-client.create_collection(
-    collection_name="test_collection",
-    vectors_config=VectorParams(size=4, distance=Distance.DOT),
-)
+if not client.collection_exists(collection_name="demo"):
+    client.create_collection(
+        collection_name="demo",
+        vectors_config=VectorParams(size=1024, distance=Distance.COSINE),
+    )
 
 
 def main():
